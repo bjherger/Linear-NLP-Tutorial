@@ -129,3 +129,40 @@ def archive_dataset_schemas(step_name, local_dict, global_dict):
 
     # Write to file
     agg_schema_df.to_csv(schema_output_path, index_label='variable')
+
+
+def strip_header(document_lines):
+    """
+    Newsgroup 20 documents often contain headers, which may include their classification. This (highly heuristic) method
+    attempts to strip away those headers.
+
+     - Iterate until we hit the first empty line
+     - Keep all lines after the first empty line
+
+    :param document_lines: An iterable, containing lines of text from a newsgroup 20 document
+    :return: Lines of the newsgroup 20 document, with the header stripped.
+    """
+
+    first_empty_line = False
+
+    output_agg = list()
+
+    for line in document_lines:
+
+        if line == '\n':
+            first_empty_line = True
+
+        if first_empty_line:
+            output_agg.append(line)
+
+    document_string = '\n'.join(output_agg)
+
+    return document_string
+
+
+def find_ngrams(input_list, n):
+    # Courtesy http://locallyoptimal.com/blog/2013/01/20/elegant-n-gram-generation-in-python/
+    ngrams = zip(*[input_list[i:] for i in range(n)])
+    flattened_ngrams = map(lambda x: ' '.join(x), ngrams)
+    return flattened_ngrams
+

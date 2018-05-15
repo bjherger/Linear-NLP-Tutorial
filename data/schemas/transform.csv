@@ -1,1 +1,8 @@
-variable,variable,type,data_set
+variable,data_set,type,variable
+document_path,observations,object,
+filename,observations,object,
+category,observations,object,
+text,observations,object,
+tokens,observations,object,
+bigrams,observations,object,
+modeling_text,observations,object,

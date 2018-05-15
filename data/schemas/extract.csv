@@ -1,1 +1,2 @@
-variable,variable,type,data_set
+variable,data_set,type,variable
+document_path,observations,object,
