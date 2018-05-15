@@ -8,3 +8,8 @@
 
 # User-specific Idea / Pycharm files
 .idea/
+
+# Large assets
+resources/20_newsgroup/*
+resources/compressed/*
+resources/GoogleNews-vectors-negative300.bin

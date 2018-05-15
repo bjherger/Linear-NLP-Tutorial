@@ -1,31 +1,72 @@
-name: starter
+name: linear_nlp
 channels:
-- !!python/unicode
-  'defaults'
+  - defaults
 dependencies:
-- !!python/unicode
-  'openssl=1.0.2h=2'
-- !!python/unicode
-  'pip=8.1.2=py27_0'
-- !!python/unicode
-  'python=2.7.12=1'
-- !!python/unicode
-  'readline=6.2=2'
-- !!python/unicode
-  'setuptools=26.1.1=py27_0'
-- !!python/unicode
-  'sqlite=3.13.0=0'
-- !!python/unicode
-  'tk=8.5.18=0'
-- !!python/unicode
-  'wheel=0.29.0=py27_0'
-- !!python/unicode
-  'zlib=1.2.8=3'
-- pip:
-  - numpy==1.14.1
-  - pandas==0.22.0
-  - python-dateutil==2.6.1
-  - pytz==2018.3
-  - pyyaml==3.12
-  - six==1.11.0
-prefix: !!python/unicode '/Users/bjherger/anaconda2/envs/starter'
+  - asn1crypto=0.24.0=py27_0
+  - boto=2.48.0=py27hacdd0fd_1
+  - boto3=1.5.32=py27_0
+  - botocore=1.8.46=py27_0
+  - bz2file=0.98=py27_0
+  - certifi=2018.4.16=py27_0
+  - cffi=1.11.5=py27h342bebf_0
+  - chardet=3.0.4=py27h2842e91_1
+  - cryptography=2.0.3=py27hab69567_1
+  - docutils=0.14=py27h0befae3_0
+  - enum34=1.1.6=py27hf475452_1
+  - futures=3.2.0=py27h1b80678_0
+  - gensim=3.4.0=py27h917ab60_0
+  - idna=2.6=py27hedea723_1
+  - intel-openmp=2018.0.0=8
+  - ipaddress=1.0.22=py27_0
+  - jmespath=0.9.3=py27hadaa2a8_0
+  - libcxx=4.0.1=h579ed51_0
+  - libcxxabi=4.0.1=hebd6815_0
+  - libffi=3.2.1=h475c297_4
+  - libgfortran=3.0.1=h93005f0_2
+  - mkl=2018.0.2=1
+  - mkl_fft=1.0.1=py27h917ab60_0
+  - mkl_random=1.0.1=py27h78cc56f_0
+  - numpy=1.14.2=py27ha9ae307_1
+  - openssl=1.0.2h=2
+  - pip=8.1.2=py27_0
+  - pycparser=2.18=py27h0d28d88_1
+  - pyopenssl=17.4.0=py27hebdda09_0
+  - pysocks=1.6.8=py27_0
+  - python=2.7.12=1
+  - python-dateutil=2.7.3=py27_0
+  - readline=6.2=2
+  - requests=2.18.4=py27h9b2b37c_1
+  - s3transfer=0.1.13=py27_0
+  - scipy=1.1.0=py27hcaad992_0
+  - setuptools=26.1.1=py27_0
+  - six=1.11.0=py27h7252ba3_1
+  - smart_open=1.5.7=py27_0
+  - sqlite=3.13.0=0
+  - tk=8.5.18=0
+  - urllib3=1.22=py27hc3787e9_0
+  - wheel=0.29.0=py27_0
+  - zlib=1.2.8=3
+  - pip:
+    - cymem==1.31.2
+    - cytoolz==0.8.2
+    - dill==0.2.7.1
+    - msgpack-numpy==0.4.1
+    - msgpack-python==0.5.6
+    - murmurhash==0.28.0
+    - pandas==0.22.0
+    - pathlib==1.0.1
+    - plac==0.9.6
+    - preshed==1.0.0
+    - pytz==2018.4
+    - pyyaml==3.12
+    - regex==2017.4.5
+    - scikit-learn==0.19.1
+    - sklearn==0.0
+    - spacy==2.0.11
+    - termcolor==1.1.0
+    - thinc==6.10.2
+    - toolz==0.9.0
+    - tqdm==4.23.3
+    - ujson==1.35
+    - wrapt==1.10.11
+prefix: /Users/brendanherger/anaconda2/envs/linear_nlp
