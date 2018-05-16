@@ -163,6 +163,6 @@ def strip_header(document_lines):
 def find_ngrams(input_list, n):
     # Courtesy http://locallyoptimal.com/blog/2013/01/20/elegant-n-gram-generation-in-python/
     ngrams = zip(*[input_list[i:] for i in range(n)])
-    flattened_ngrams = map(lambda x: ' '.join(x), ngrams)
+    flattened_ngrams = map(lambda x: '_'.join(x), ngrams)
     return flattened_ngrams
 

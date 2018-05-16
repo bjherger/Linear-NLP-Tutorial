@@ -6,6 +6,7 @@ Code Template
 
 """
 import glob
+import itertools
 import logging
 import ntpath
 import os
@@ -13,6 +14,7 @@ import os
 import numpy
 import pandas
 from gensim.utils import simple_preprocess
+from sklearn.feature_extraction.text import CountVectorizer
 
 import lib
 import resources
@@ -91,6 +93,9 @@ def transform(observations):
     # Newsgroup20: Extract article text (and strip article headers), from document path
     observations['text'] = observations['document_path'].apply(lambda x: lib.strip_header(open(x).readlines()))
 
+    # Remove non-ascii characters
+    observations['text'] = observations['text'].apply(lambda x: x.decode('ascii', errors='ignore'))
+
     # Newsgroup20: Convert text to normalized tokens. Unknown tokens will map to 'UNK'.
     observations['tokens'] = observations['text'].apply(simple_preprocess)
 
@@ -98,7 +103,8 @@ def transform(observations):
     observations['bigrams'] = observations['text'].apply(lambda x: lib.find_ngrams(x, n=2))
 
     # Newsgroup20: Create modeling text
-    observations['modeling_text'] = observations['tokens'] + observations['bigrams']
+    observations['modeling_text_list'] = observations['tokens'] + observations['bigrams']
+    observations['modeling_text'] = observations['modeling_text_list'].apply(lambda x: ' '.join(x))
 
     lib.archive_dataset_schemas('transform', locals(), globals())
     logging.info('End transform')
@@ -108,10 +114,21 @@ def transform(observations):
 def model(observations):
     logging.info('Begin model')
 
-    df = pandas.DataFrame(numpy.random.randn(100, 2))
-    msk = numpy.random.rand(len(df)) < 0.8
-    train = df[msk]
-    test = df[~msk]
+    # Resources
+    vocabulary = list(itertools.chain.from_iterable(observations['modeling_text_list']))
+    vectorizer = CountVectorizer(vocabulary=vocabulary)
+
+    # Create train, test sets
+    msk = numpy.random.rand(len(observations)) < 0.8
+    train = observations[msk]
+    test = observations[~msk]
+
+    # Create X, y vectors
+    X_train = vectorizer.fit_transform(train['modeling_text'])
+    y_train = train['category']
+
+    X_test = vectorizer.transform(test['modeling_text'])
+    y_test = test['category']
 
     lib.archive_dataset_schemas('model', locals(), globals())
     logging.info('End model')
