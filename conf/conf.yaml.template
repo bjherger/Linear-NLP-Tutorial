@@ -1,6 +1,6 @@
 newsgroup_path: ../resources/20_newsgroup
 embedding_path: ../resources/GoogleNews-vectors-negative300.bin
-test_run: False
+test_run: True
 data_schema_dir: ../data/schemas
 train_model: True
 max_sequence_length: 1000

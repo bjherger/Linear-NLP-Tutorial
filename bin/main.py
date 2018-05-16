@@ -15,6 +15,7 @@ import numpy
 import pandas
 from gensim.utils import simple_preprocess
 from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.naive_bayes import GaussianNB
 
 import lib
 import resources
@@ -115,7 +116,7 @@ def model(observations):
     logging.info('Begin model')
 
     # Resources
-    vocabulary = list(itertools.chain.from_iterable(observations['modeling_text_list']))
+    vocabulary = set(itertools.chain.from_iterable(observations['modeling_text_list']))
     vectorizer = CountVectorizer(vocabulary=vocabulary)
 
     # Create train, test sets
@@ -130,9 +131,16 @@ def model(observations):
     X_test = vectorizer.transform(test['modeling_text'])
     y_test = test['category']
 
+    # Creae, train model
+    print X_trai
+    nb = GaussianNB()
+    nb.fit(X_train, y_train)
+
+    #
+
     lib.archive_dataset_schemas('model', locals(), globals())
     logging.info('End model')
-    pass
+    return observations, vectorizer, nb
 
 
 def load():
