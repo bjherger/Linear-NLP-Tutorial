@@ -1,2 +1,3 @@
 variable,data_set,type,variable
+index,observations,int64,
 document_path,observations,object,

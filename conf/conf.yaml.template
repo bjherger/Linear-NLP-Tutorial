@@ -4,3 +4,4 @@ test_run: True
 data_schema_dir: ../data/schemas
 train_model: True
 max_sequence_length: 1000
+load_path: ../data/output

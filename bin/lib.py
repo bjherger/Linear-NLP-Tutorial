@@ -9,6 +9,7 @@ import yaml
 # Global variables
 CONFS = None
 BATCH_NAME = None
+BATCH_OUTPUT_FOLDER = None
 TEMP_DIR = None
 
 
@@ -77,6 +78,15 @@ def get_temp_dir():
         logging.info('Created temporary directory: {}'.format(TEMP_DIR))
         print('Created temporary directory: {}'.format(TEMP_DIR))
     return TEMP_DIR
+
+
+def get_batch_output_folder():
+    global BATCH_OUTPUT_FOLDER
+    if BATCH_OUTPUT_FOLDER is None:
+        BATCH_OUTPUT_FOLDER = os.path.join(get_conf('load_path'), get_batch_name())
+        os.mkdir(BATCH_OUTPUT_FOLDER)
+        logging.info('Batch output folder: {}'.format(BATCH_OUTPUT_FOLDER))
+    return BATCH_OUTPUT_FOLDER
 
 
 def archive_dataset_schemas(step_name, local_dict, global_dict):

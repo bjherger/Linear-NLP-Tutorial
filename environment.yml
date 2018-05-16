@@ -50,6 +50,7 @@ dependencies:
     - cymem==1.31.2
     - cytoolz==0.8.2
     - dill==0.2.7.1
+    - feather-format==0.4.0
     - msgpack-numpy==0.4.1
     - msgpack-python==0.5.6
     - murmurhash==0.28.0
@@ -57,6 +58,7 @@ dependencies:
     - pathlib==1.0.1
     - plac==0.9.6
     - preshed==1.0.0
+    - pyarrow==0.9.0.post1
     - pytz==2018.4
     - pyyaml==3.12
     - regex==2017.4.5

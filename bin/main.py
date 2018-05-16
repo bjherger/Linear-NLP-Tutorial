@@ -5,6 +5,7 @@ coding=utf-8
 Code Template
 
 """
+import cPickle
 import glob
 import itertools
 import logging
@@ -31,8 +32,8 @@ def main():
 
     observations = extract()
     observations = transform(observations)
-    model(observations)
-    load()
+    observations, vectorizer, nb, test = model(observations)
+    load(observations, vectorizer, nb, test)
     pass
 
 
@@ -72,7 +73,8 @@ def extract():
     # Newsgroup20: Subset number of observations, if it's a test run
     if lib.get_conf('test_run'):
         logging.info('Reducing file size for test run')
-        observations = observations.head(100)
+        observations = observations.sample(100)
+        observations = observations.reset_index()
         logging.info('Test run number of records: {}'.format(len(observations.index)))
 
     # Archive schema and return
@@ -125,26 +127,41 @@ def model(observations):
     test = observations[~msk]
 
     # Create X, y vectors
-    X_train = vectorizer.fit_transform(train['modeling_text'])
+    X_train = vectorizer.fit_transform(train['modeling_text']).todense()
     y_train = train['category']
 
-    X_test = vectorizer.transform(test['modeling_text'])
+    X_test = vectorizer.transform(test['modeling_text']).todense()
     y_test = test['category']
 
-    # Creae, train model
-    print X_trai
+    # Create, train model
     nb = GaussianNB()
     nb.fit(X_train, y_train)
 
-    #
+    # Create predictions, using trained model
+    test['preds'] = nb.predict(X_test)
+    scores = nb.score(X_test, y_test)
+    logging.info('Scores: {}'.format(scores))
 
     lib.archive_dataset_schemas('model', locals(), globals())
     logging.info('End model')
-    return observations, vectorizer, nb
+    return observations, vectorizer, nb, test
 
 
-def load():
+def load(observations, vectorizer, nb, test):
     logging.info('Begin load')
+
+    logging.info('Writing observations to CSV')
+    observations.to_csv(os.path.join(lib.get_batch_output_folder(), 'observations.csv'))
+
+    logging.info('Writing test observations to CSV ')
+    test.to_csv(os.path.join(lib.get_batch_output_folder(), 'test.csv'))
+
+    logging.info('Writing vectorizer to file')
+    cPickle.dump(vectorizer, open(os.path.join(lib.get_batch_output_folder(), 'vectorizer.pkl'), 'w+'))
+
+    logging.info('Writing model to file')
+    cPickle.dump(nb, open(os.path.join(lib.get_batch_output_folder(), 'model.pkl'), 'w+'))
+
 
     lib.archive_dataset_schemas('load', locals(), globals())
     logging.info('End load')

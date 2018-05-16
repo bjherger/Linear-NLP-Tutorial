@@ -13,3 +13,5 @@
 resources/20_newsgroup/*
 resources/compressed/*
 resources/GoogleNews-vectors-negative300.bin
+
+data/output/*
